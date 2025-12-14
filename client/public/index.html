@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#667eea" />
+    <meta name="description" content="WebRTC Video Conference - Secure P2P Video Calling Application" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <title>WebRTC Video Conference</title>
+    <script>
+      // COMPLETE polyfill for process (fixes "process.nextTick is not a function" and "_readableState" errors)
+      window.process = window.process || {};
+      window.process.env = window.process.env || { NODE_ENV: 'development' };
+      window.process.browser = true;
+      window.process.version = '';
+      window.process.versions = { node: false };
+      
+      // Complete nextTick implementation
+      window.process.nextTick = window.process.nextTick || function(fn) {
+        if (typeof fn !== 'function') {
+          throw new TypeError('callback must be a function');
+        }
+        var args = new Array(arguments.length - 1);
+        if (arguments.length > 1) {
+          for (var i = 1; i < arguments.length; i++) {
+            args[i - 1] = arguments[i];
+          }
+        }
+        setTimeout(function() {
+          fn.apply(null, args);
+        }, 0);
+      };
+      
+      window.global = window;
+    </script>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+  </body>
+</html>
